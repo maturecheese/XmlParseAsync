@@ -15,6 +15,7 @@ public class MyActivity extends Activity implements ResultsCallback {
     public static String LOGTAG = "MyActivity";
     public PlaceholderFragment taskFragment;
     public ListView articleListView;
+    public ArticleIconTask articleIconTask;
     //public static ToastMessage L;
 
     @Override
@@ -25,10 +26,12 @@ public class MyActivity extends Activity implements ResultsCallback {
     @Override
     public void onPostExecute(ArrayList<HashMap<String, String>> items) {
         //Log.d(LOGTAG, "Soo did this fcking work??   " + items.toString());
-        MyAdapter myAdapter = new MyAdapter(this.getApplicationContext(), items);
-        for (HashMap<String, String> item : items){
-            Log.d(LOGTAG, item.toString());
-        }
+        MyAdapter myAdapter = new MyAdapter(this.getApplicationContext(), items, articleIconTask);
+/*
+for (HashMap<String, String> item : items){
+Log.d(LOGTAG, item.toString());
+}
+*/
         articleListView.setAdapter(myAdapter);
     }
 
@@ -36,6 +39,7 @@ public class MyActivity extends Activity implements ResultsCallback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
+        this.articleIconTask = new ArticleIconTask();
         //this.L = new ToastMessage(this.getApplicationContext());
         //L.displayMessage("WTFFF");
         //Log.d(LOGTAG, "WTFF!");

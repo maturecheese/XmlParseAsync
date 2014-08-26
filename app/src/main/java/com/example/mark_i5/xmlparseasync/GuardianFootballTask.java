@@ -68,7 +68,7 @@ public  class GuardianFootballTask extends AsyncTask<Void, Void, ArrayList<HashM
 
         ArrayList<HashMap<String, String>> items = new ArrayList<HashMap<String, String>>();
 
-        HashMap<String, String> currentMap = null;
+
         int count = 0;
         for (int i = 0; i < nodeList.getLength(); i++) {
             currentItem = nodeList.item(i);

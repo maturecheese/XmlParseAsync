@@ -44,18 +44,27 @@
             android:layout_alignParentRight="true"
             android:layout_marginLeft="4dip"
             android:layout_below="@id/item_title"
-            
+
             android:text="Jan 13 29:34 "></TextView>
 
+        <ImageView
+
+            android:layout_height="wrap_content"
+            android:id="@+id/item_image"
+            android:layout_below="@id/item_title"
+            android:layout_width="40dip"
+            android:src="@drawable/ic_launcher"/>
         <TextView
             android:id="@+id/item_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/item_pubdate"
+            android:layout_below="@id/item_image"
             android:layout_marginLeft="4dip"
 
             android:text="Some description of some title blah blah wknsdkfnk knds kds kds skfnsg nlknds sdlgk "
             android:autoLink="all"></TextView>
+
+
     </RelativeLayout>
 
 
