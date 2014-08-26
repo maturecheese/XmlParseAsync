@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/background"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp">
+
+      <!--  <ImageView
+            android:id="@+id/item_image"
+            android:layout_width="32dip"
+            android:layout_height="32dip"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"></ImageView>-->
+
+        <TextView
+            android:id="@+id/item_title"
+            android:text="Some title ldnslkgn lksdnmflknslk ;lkdsnglknslk ldsgnjlksn lksdnglknslk lksdnglknslk lsdmg;l lk;sdmngk;n ;lkdsngk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dip"
+
+            android:background="#ffe6fff2"
+            android:shadowColor="#ffffffff"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="0.5"
+            android:textColor="#777777"
+            android:textStyle="bold"></TextView>
+
+
+        <TextView
+            android:id="@+id/item_pubdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="4dip"
+            android:layout_below="@id/item_title"
+            
+            android:text="Jan 13 29:34 "></TextView>
+
+        <TextView
+            android:id="@+id/item_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_pubdate"
+            android:layout_marginLeft="4dip"
+
+            android:text="Some description of some title blah blah wknsdkfnk knds kds kds skfnsg nlknds sdlgk "
+            android:autoLink="all"></TextView>
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>
