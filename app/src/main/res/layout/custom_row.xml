@@ -49,11 +49,14 @@
 
         <ImageView
 
-            android:layout_height="wrap_content"
+
             android:id="@+id/item_image"
             android:layout_below="@id/item_title"
-            android:layout_width="40dip"
-            android:src="@drawable/ic_launcher"/>
+            android:layout_width="140dip"
+            android:layout_height="82dip"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"/>
         <TextView
             android:id="@+id/item_description"
             android:layout_width="wrap_content"
