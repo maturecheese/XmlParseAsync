@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mark_i5.xmlparseasync.R;
+import com.example.mark_i5.xmlparseasync.data.Article;
 import com.example.mark_i5.xmlparseasync.tasks.ArticleIconTask;
 import com.example.mark_i5.xmlparseasync.tasks.SaveImageTask;
 
@@ -23,13 +24,13 @@ import java.util.HashMap;
 public class MyAdapter extends BaseAdapter {
 
     private static String LOGTAG ="MyAdapter";
-    ArrayList<HashMap<String, String>> dataSource;
+    ArrayList<Article> dataSource;
     Context context;
     LayoutInflater layoutInflater;
     ArticleIconTask articleIconTask;
     SaveImageTask saveImageTask;
 
-    public MyAdapter(Context context, ArrayList<HashMap<String, String>> dataSource, ArticleIconTask articleIconTask){
+    public MyAdapter(Context context, ArrayList<Article> dataSource, ArticleIconTask articleIconTask){
         this.dataSource = dataSource;
         this.context = context;
         this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -64,14 +65,16 @@ public class MyAdapter extends BaseAdapter {
         }else{
             holder = (MyHolder) row.getTag();
         }
-        HashMap<String, String> currentItem = dataSource.get(i);
-        holder.articleTitleText.setText(currentItem.get("title"));
-        holder.articleDescriptionText.setText(currentItem.get("description"));
-        holder.articlePubDate.setText(currentItem.get("pubDate"));
-        holder.articleImage.setTag(currentItem.get("imageUrl"));
+        Article currentItem = dataSource.get(i);
+        holder.articleTitleText.setText(currentItem.getTitle());
+        holder.articleDescriptionText.setText(currentItem.getDescription());
+        holder.articlePubDate.setText(currentItem.getPublished());
 
-        String url = currentItem.get("imageUrl");
-        String[] splits = currentItem.get("imageUrl").split("/");
+
+        String url = currentItem.getImageUrl();
+        holder.articleImage.setTag(url);
+
+        String[] splits = url.split("/");
         String fileName = splits[splits.length - 1];
         Log.d(LOGTAG, "fileName: " + fileName + "\turl: " + url);
         saveImageTask.saveImage(fileName, url);

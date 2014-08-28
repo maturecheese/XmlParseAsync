@@ -5,12 +5,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
 
+import com.example.mark_i5.xmlparseasync.data.Article;
+import com.example.mark_i5.xmlparseasync.data.ArticleDatabase;
 import com.example.mark_i5.xmlparseasync.fragments.PlaceholderFragment;
 import com.example.mark_i5.xmlparseasync.R;
 import com.example.mark_i5.xmlparseasync.ResultsCallback;
 import com.example.mark_i5.xmlparseasync.adapters.MyAdapter;
 import com.example.mark_i5.xmlparseasync.tasks.ArticleIconTask;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -28,14 +31,24 @@ public class MyActivity extends Activity implements ResultsCallback {
     }
 
     @Override
-    public void onPostExecute(ArrayList<HashMap<String, String>> items) {
+    public void onPostExecute(ArrayList<Article> items) {
         Log.d(LOGTAG, "onPostExecute firing");
+
+
+        try {
+            ArticleDatabase articleDatabase = new ArticleDatabase(getApplicationContext());
+            articleDatabase.open();
+
+            for (Article article: items){
+                articleDatabase.insertArticle(article);
+            }
+        } catch (SQLException e) {
+            Log.e(LOGTAG, "SqlError", e);
+            e.printStackTrace();
+        }
+
         MyAdapter myAdapter = new MyAdapter(this.getApplicationContext(), items, articleIconTask);
-/*
-for (HashMap<String, String> item : items){
-Log.d(LOGTAG, item.toString());
-}
-*/
+
         articleListView.setAdapter(myAdapter);
     }
 
