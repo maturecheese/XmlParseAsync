@@ -11,4 +11,5 @@ import java.util.HashMap;
 public interface ResultsCallback {
     public void onPreExecute();
     public void onPostExecute(ArrayList<Article> items);
+    public void onImageSaved(String filePath);
 }

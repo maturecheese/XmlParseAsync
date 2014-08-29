@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.mark_i5.xmlparseasync.ResultsCallback;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -22,10 +24,14 @@ import java.net.UnknownHostException;
 public class SaveImageTask {
     Context context;
     private static final String LOGTAG = "SaveImageTask";
+    private ResultsCallback callback;
 
-    public SaveImageTask(Context context) {
+
+    public SaveImageTask(Context context, ResultsCallback callback) {
         this.context = context;
     }
+
+
     public void saveImage(String filename, String url){
         String[] params = new String[2];
         params[0]= filename;
@@ -38,7 +44,8 @@ public class SaveImageTask {
         @Override
         protected void onPostExecute(String filePath) {
             super.onPostExecute(filePath);
-            Toast.makeText(context,"saved image to: "+filePath, Toast.LENGTH_LONG);
+            callback
+            //Toast.makeText(context,"saved image to: "+filePath, Toast.LENGTH_LONG);
         }
 
 
@@ -74,7 +81,8 @@ public class SaveImageTask {
                 //Toast.makeText(this, "Download Completed Successfully @ " + PATH, Toast.LENGTH_LONG).show();
                 f.close();
                 Log.d(LOGTAG, filePath);
-                return filePath;
+               // file.getAbsolutePath();
+                return file.getAbsolutePath();
 
 
             } catch (MalformedURLException e) {

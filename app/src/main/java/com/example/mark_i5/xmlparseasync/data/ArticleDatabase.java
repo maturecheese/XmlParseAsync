@@ -43,40 +43,52 @@ public class ArticleDatabase {
         contentValues.put(ArticleDatabaseHelper.TITLE, article.getTitle());
         contentValues.put(ArticleDatabaseHelper.DESCRIPTION, article.getDescription());
         contentValues.put(ArticleDatabaseHelper.PUBLISHED_AT, article.getPublished());
-        contentValues.put(ArticleDatabaseHelper.IMAGE_PATH, article.getImageUrl());
+        contentValues.put(ArticleDatabaseHelper.IMAGE_URL, article.getImageUrl());
 
         //long id = db.insert(ArticleDatabaseHelper.TABLE_NAME, null,contentValues);
-        long id = sqLiteDatabase.insertWithOnConflict(dbHelper.TABLE_NAME, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
+        long id = sqLiteDatabase.insertWithOnConflict(ArticleDatabaseHelper.TABLE_NAME, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
         Log.d(LOGTAG, "track_id: " + id);
         return id;
 
     }
+    public boolean updateRowById(int id, String[] columns, String[] values){
+        ContentValues contentValues = new ContentValues();
+        if (columns.length == values.length){
+            for(int i = 0 ; i < columns.length; i ++){
+                contentValues.put(columns[i], values[i]);
+            }
+        }
+        int num = sqLiteDatabase.update(ArticleDatabaseHelper.TABLE_NAME,contentValues, ArticleDatabaseHelper.TID +"="+id, null);
+        return num > 0;
+    }
 
     public Cursor fetchAllArticles(){
-        Cursor cursor = sqLiteDatabase.query(dbHelper.TABLE_NAME, dbHelper.ALL_COLUMNS, null, null, null, null, null );
+        Cursor cursor = sqLiteDatabase.query(ArticleDatabaseHelper.TABLE_NAME,
+                ArticleDatabaseHelper.ALL_COLUMNS, null, null, null, null, null );
         if (cursor != null){
             cursor.moveToFirst();
         }
         return cursor;
     }
 
-    private static class ArticleDatabaseHelper extends SQLiteOpenHelper{
+    public static class ArticleDatabaseHelper extends SQLiteOpenHelper{
         private static final String DATABASE_NAME = "articles.db";
         private static final String TABLE_NAME = "article_table";
         private static final int DATABASE_VERSION = 3;
 
-        private static final String TITLE = "title";
-        private static final String DESCRIPTION = "description";
-        private static final String IMAGE_PATH = "image_path";
-        private static final String PUBLISHED_AT = "created_at";
+        public static final String TITLE = "title";
+        public static final String DESCRIPTION = "description";
+        public static final String IMAGE_URL = "image_path";
+        public static final String PUBLISHED_AT = "created_at";
+        public static final String IMAGE_LOCAL_PATH = "image_local_path";
 
-        private static final String[] ALL_COLUMNS = {TITLE, DESCRIPTION, IMAGE_PATH, PUBLISHED_AT};
+        private static final String[] ALL_COLUMNS = {TITLE, DESCRIPTION, IMAGE_URL, PUBLISHED_AT};
 
 
         private static final String TID = "_id";
         private static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME +" ("+TID +
                 " INTEGER PRIMARY KEY AUTOINCREMENT, "+ TITLE +" TEXT, " + DESCRIPTION + " TEXT, "+
-                IMAGE_PATH +" TEXT, " + PUBLISHED_AT + " TEXT, UNIQUE (" + TITLE + "))";
+                IMAGE_URL +" TEXT, " + PUBLISHED_AT + " TEXT, "+ IMAGE_LOCAL_PATH +" TEXT, UNIQUE (" + TITLE + "))";
 
 
         private static final String DROP_TABLE = "DROP TABLE " +TABLE_NAME;

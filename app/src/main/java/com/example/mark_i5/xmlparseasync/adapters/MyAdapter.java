@@ -30,6 +30,7 @@ public class MyAdapter extends BaseAdapter {
     ArticleIconTask articleIconTask;
     SaveImageTask saveImageTask;
 
+
     public MyAdapter(Context context, ArrayList<Article> dataSource, ArticleIconTask articleIconTask){
         this.dataSource = dataSource;
         this.context = context;

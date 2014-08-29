@@ -23,10 +23,22 @@ public class MyActivity extends Activity implements ResultsCallback {
     public PlaceholderFragment taskFragment;
     public ListView articleListView;
     public ArticleIconTask articleIconTask;
+    public ArticleDatabase articleDatabase;
     //public static ToastMessage L;
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        articleDatabase.close();
+    }
+
+    @Override
     public void onPreExecute() {
+
+    }
+
+    @Override
+    public void onImageSaved(String filePath) {
 
     }
 
@@ -35,16 +47,8 @@ public class MyActivity extends Activity implements ResultsCallback {
         Log.d(LOGTAG, "onPostExecute firing");
 
 
-        try {
-            ArticleDatabase articleDatabase = new ArticleDatabase(getApplicationContext());
-            articleDatabase.open();
-
-            for (Article article: items){
-                articleDatabase.insertArticle(article);
-            }
-        } catch (SQLException e) {
-            Log.e(LOGTAG, "SqlError", e);
-            e.printStackTrace();
+        for (Article article: items){
+             articleDatabase.insertArticle(article);
         }
 
         MyAdapter myAdapter = new MyAdapter(this.getApplicationContext(), items, articleIconTask);
@@ -56,6 +60,14 @@ public class MyActivity extends Activity implements ResultsCallback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
+
+        try {
+            this.articleDatabase = new ArticleDatabase(getApplicationContext());
+            articleDatabase.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         this.articleIconTask = new ArticleIconTask();
         //this.L = new ToastMessage(this.getApplicationContext());
         //L.displayMessage("WTFFF");
