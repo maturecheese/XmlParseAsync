@@ -1,6 +1,7 @@
 package com.example.mark_i5.xmlparseasync.adapters;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.mark_i5.xmlparseasync.R;
 import com.example.mark_i5.xmlparseasync.data.Article;
+import com.example.mark_i5.xmlparseasync.data.ArticleDatabase;
 import com.example.mark_i5.xmlparseasync.tasks.ArticleIconTask;
 import com.example.mark_i5.xmlparseasync.tasks.SaveImageTask;
 
@@ -25,6 +27,7 @@ public class MyAdapter extends BaseAdapter {
 
     private static String LOGTAG ="MyAdapter";
     ArrayList<Article> dataSource;
+    Cursor cursor;
     Context context;
     LayoutInflater layoutInflater;
     ArticleIconTask articleIconTask;
@@ -36,6 +39,8 @@ public class MyAdapter extends BaseAdapter {
         this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.articleIconTask = articleIconTask;
         this.saveImageTask = new SaveImageTask(context);
+
+        //this.cursor = new ArticleDatabase(context).fetchAllArticles();
     }
     @Override
     public int getCount() {

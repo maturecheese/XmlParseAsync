@@ -35,7 +35,7 @@ public class MyActivity extends Activity implements ResultsCallback {
         Log.d(LOGTAG, "onPostExecute firing");
 
 
-        try {
+       /* try {
             ArticleDatabase articleDatabase = new ArticleDatabase(getApplicationContext());
             articleDatabase.open();
 
@@ -46,7 +46,7 @@ public class MyActivity extends Activity implements ResultsCallback {
             Log.e(LOGTAG, "SqlError", e);
             e.printStackTrace();
         }
-
+*/
         MyAdapter myAdapter = new MyAdapter(this.getApplicationContext(), items, articleIconTask);
 
         articleListView.setAdapter(myAdapter);
